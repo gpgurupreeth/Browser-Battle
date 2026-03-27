@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { Menu, X, Search, Moon, Sun, ChevronDown, Phone, Mail, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useTheme } from '../contexts/ThemeContext';
@@ -39,9 +39,32 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const searchItems = useMemo(
+    () => [
+      ...navigationLinks.map((link) => ({ label: link.name, path: link.path })),
+      { label: 'Admissions - Apply Now', path: '/admissions' },
+      { label: 'Academics - Programs', path: '/academics#programs' },
+      { label: 'Campus Life', path: '/campus-life' },
+      { label: 'Placements', path: '/placements' },
+      { label: 'Research', path: '/research' },
+      { label: 'Contact', path: '/contact' },
+    ],
+    [],
+  );
+
+  const filteredResults = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return [];
+    return searchItems
+      .filter((item) => item.label.toLowerCase().includes(query))
+      .slice(0, 7);
+  }, [searchItems, searchQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,7 +76,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsSearchOpen(false);
+    setSearchQuery('');
   }, [location]);
+
+  const handleSearchSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    if (filteredResults.length === 0) return;
+    navigate(filteredResults[0].path);
+    setIsSearchOpen(false);
+    setSearchQuery('');
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors">
@@ -166,14 +199,37 @@ export function Layout({ children }: { children: React.ReactNode }) {
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden"
               >
-                <div className="pt-4">
+                <form className="pt-4 space-y-3" onSubmit={handleSearchSubmit}>
                   <Input
                     type="search"
                     placeholder="Search courses, programs, departments..."
                     className="w-full"
                     autoFocus
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                </div>
+                  {filteredResults.length > 0 && (
+                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden divide-y divide-gray-200 dark:divide-gray-700">
+                      {filteredResults.map((item) => (
+                        <Link
+                          key={item.path}
+                          to={item.path}
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            setSearchQuery('');
+                          }}
+                          className="flex items-center justify-between px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          <span className="font-medium">{item.label}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">Open</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  {searchQuery && filteredResults.length === 0 && (
+                    <div className="text-sm text-gray-500 dark:text-gray-400 px-2">No matching pages yet.</div>
+                  )}
+                </form>
               </motion.div>
             )}
           </AnimatePresence>
@@ -283,15 +339,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <ul className="space-y-3 text-sm">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
-                  <span>123 University Avenue<br />Education City, EC 12345</span>
+                  <span>
+                    RNS Institute of Technology<br />
+                    Dr. Vishnuvardhan Road, RR Nagar<br />
+                    Bengaluru, Karnataka 560098
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
-                  <span>+1 (234) 567-890</span>
+                  <span>+91 80 2861 3695</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  <span>info@university.edu</span>
+                  <span>info@rnsit.ac.in</span>
                 </li>
               </ul>
             </div>

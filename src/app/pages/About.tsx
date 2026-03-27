@@ -4,11 +4,13 @@ import { Target, Eye, History, Users, Award, Globe } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
+const placeholderProfile = 'https://via.placeholder.com/400x400?text=Profile';
+
 const leadership = [
-  { name: 'Dr. Robert Anderson', role: 'Chancellor', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400' },
-  { name: 'Dr. Maria Garcia', role: 'Vice Chancellor', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400' },
-  { name: 'Prof. James Williams', role: 'Dean of Academics', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400' },
-  { name: 'Dr. Sarah Thompson', role: 'Dean of Research', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400' },
+  { name: 'Dr. Ananya Rao', role: 'Chancellor', image: placeholderProfile },
+  { name: 'Dr. Vikram Singh', role: 'Vice Chancellor', image: placeholderProfile },
+  { name: 'Prof. Kavita Menon', role: 'Dean of Academics', image: placeholderProfile },
+  { name: 'Dr. Arjun Iyer', role: 'Dean of Research', image: placeholderProfile },
 ];
 
 const milestones = [
@@ -33,8 +35,8 @@ export default function About() {
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1752920299180-e8fd9276c202?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMHN0dWR5aW5nJTIwbGlicmFyeXxlbnwxfHx8fDE3NzQ1MDY2MjZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-            alt="About Us"
+            src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=80"
+            alt="RNS Institute of Technology campus walkway"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-blue-900/80 dark:bg-blue-950/90" />
@@ -45,7 +47,7 @@ export default function About() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            About Elite University
+            About RNS University
           </motion.h1>
           <motion.p
             className="text-xl md:text-2xl text-blue-100"

@@ -63,7 +63,15 @@ export default function CampusLife() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-96 flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-800 dark:to-pink-800">
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1600&q=80"
+            alt="Campus Life"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/90 to-pink-900/80 dark:from-purple-950/95 dark:to-pink-950/90" />
+        </div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -88,7 +96,7 @@ export default function CampusLife() {
             className="text-center mb-12"
           >
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Experience Life at Elite University
+              Experience Life at RNS University
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               Our campus is a thriving ecosystem where students grow academically, socially, and personally. 

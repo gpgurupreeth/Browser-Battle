@@ -23,33 +23,40 @@ const sectorData = [
 ];
 
 const topRecruiters = [
-  'Google', 'Microsoft', 'Amazon', 'Apple', 'Goldman Sachs',
-  'McKinsey', 'Deloitte', 'IBM', 'Intel', 'JP Morgan',
-  'Tesla', 'Meta', 'Netflix', 'Adobe', 'Salesforce',
+  { name: 'Google', logo: 'https://logo.clearbit.com/google.com' },
+  { name: 'Microsoft', logo: 'https://logo.clearbit.com/microsoft.com' },
+  { name: 'Amazon', logo: 'https://logo.clearbit.com/amazon.com' },
+  { name: 'Infosys', logo: 'https://logo.clearbit.com/infosys.com' },
+  { name: 'Tata Consultancy Services', logo: 'https://logo.clearbit.com/tcs.com' },
+  { name: 'Accenture', logo: 'https://logo.clearbit.com/accenture.com' },
+  { name: 'IBM', logo: 'https://logo.clearbit.com/ibm.com' },
+  { name: 'Intel', logo: 'https://logo.clearbit.com/intel.com' },
+  { name: 'Cisco', logo: 'https://logo.clearbit.com/cisco.com' },
+  { name: 'Deloitte', logo: 'https://logo.clearbit.com/deloitte.com' },
 ];
 
 const testimonials = [
   {
-    name: 'Alex Thompson',
-    company: 'Google',
+    name: 'Aarav Patel',
+    company: 'Infosys',
     role: 'Software Engineer',
-    package: '$150,000',
+    package: '₹28 LPA',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
     quote: 'The placement cell provided excellent guidance throughout the process.',
   },
   {
     name: 'Priya Sharma',
-    company: 'Goldman Sachs',
-    role: 'Financial Analyst',
-    package: '$120,000',
+    company: 'Tata Consultancy Services',
+    role: 'Business Analyst',
+    package: '₹22 LPA',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400',
     quote: 'Mock interviews and resume workshops were invaluable.',
   },
   {
-    name: 'David Chen',
-    company: 'McKinsey & Company',
-    role: 'Management Consultant',
-    package: '$140,000',
+    name: 'Rohan Gupta',
+    company: 'Mahindra & Mahindra',
+    role: 'Product Manager',
+    package: '₹26 LPA',
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400',
     quote: 'The career services team exceeded all my expectations.',
   },
@@ -213,7 +220,7 @@ export default function Placements() {
           <div className="flex flex-wrap justify-center gap-6">
             {topRecruiters.map((company, idx) => (
               <motion.div
-                key={company}
+                key={company.name}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -222,14 +229,12 @@ export default function Placements() {
               >
                 <Card className="w-40 hover:shadow-lg transition cursor-pointer">
                   <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full mx-auto mb-3 flex items-center justify-center">
-                      <span className="text-white font-bold text-xl">
-                        {company.charAt(0)}
-                      </span>
-                    </div>
-                    <p className="font-semibold text-gray-900 dark:text-white text-sm">
-                      {company}
-                    </p>
+                    <ImageWithFallback
+                      src={company.logo}
+                      alt={`${company.name} logo`}
+                      className="w-16 h-16 object-contain mx-auto mb-3"
+                    />
+                    <p className="font-semibold text-gray-900 dark:text-white text-sm">{company.name}</p>
                   </CardContent>
                 </Card>
               </motion.div>

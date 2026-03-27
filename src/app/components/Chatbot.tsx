@@ -12,17 +12,22 @@ const suggestedQuestions = [
 ];
 
 const botResponses: Record<string, string> = {
-  "programs": "We offer undergraduate, postgraduate, and doctoral programs across Engineering, Business, Arts, Sciences, and more. Visit our Academics page for details.",
-  "apply": "You can apply through our Admissions page. The application process includes submitting your documents, entrance exam scores, and an online application form.",
-  "requirements": "Admission requirements vary by program. Generally, you need qualifying exam scores, academic transcripts, recommendation letters, and a statement of purpose.",
-  "campus": "Our campus offers state-of-the-art facilities, diverse clubs, sports complexes, modern hostels, and a vibrant student community. Check our Campus Life section!",
-  "default": "Thank you for your question! For detailed information, please visit our website or contact our admissions office at admissions@university.edu",
+  programs:
+    "We offer undergraduate, postgraduate, and doctoral programs across Engineering, Business, Arts, Sciences, and more. Visit our Academics page for details.",
+  apply:
+    "You can apply through our Admissions page. The application process includes submitting your documents, entrance exam scores, and an online application form.",
+  requirements:
+    "Admission requirements vary by program. Generally, you need qualifying exam scores, academic transcripts, recommendation letters, and a statement of purpose.",
+  campus:
+    "Our campus offers state-of-the-art facilities, diverse clubs, sports complexes, modern hostels, and a vibrant student community. Check our Campus Life section!",
+  default:
+    "Sorry, I can only help with information from this site. Please ask about admissions, programs, campus life, placements, research, or contact details.",
 };
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Array<{ text: string; isBot: boolean }>>([
-    { text: "Hello! How can I help you today?", isBot: true },
+    { text: "Hi! Ask me anything about RNS Institute of Technology (admissions, programs, campus, placements).", isBot: true },
   ]);
   const [inputValue, setInputValue] = useState('');
 
@@ -36,7 +41,7 @@ export function Chatbot() {
     setTimeout(() => {
       let response = botResponses.default;
       const lowerText = text.toLowerCase();
-      
+
       if (lowerText.includes('program') || lowerText.includes('course')) {
         response = botResponses.programs;
       } else if (lowerText.includes('apply') || lowerText.includes('application')) {
@@ -59,7 +64,7 @@ export function Chatbot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-24 right-4 w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 z-50 overflow-hidden"
+            className="fixed bottom-24 right-4 left-4 sm:left-auto w-[calc(100vw-2rem)] sm:w-96 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 z-60 overflow-hidden max-h-[70vh] sm:max-h-[32rem] flex flex-col"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-4 flex justify-between items-center">
@@ -83,7 +88,7 @@ export function Chatbot() {
             </div>
 
             {/* Messages */}
-            <div className="h-96 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
               {messages.map((msg, idx) => (
                 <motion.div
                   key={idx}
@@ -147,7 +152,7 @@ export function Chatbot() {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-4 right-4 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full shadow-lg flex items-center justify-center z-50 hover:shadow-xl transition"
+        className="fixed bottom-4 right-4 w-14 h-14 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full shadow-lg flex items-center justify-center z-60 hover:shadow-xl transition"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >

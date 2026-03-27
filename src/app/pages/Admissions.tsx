@@ -8,6 +8,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { toast } from 'sonner';
 
 const admissionProcess = [
@@ -76,7 +77,15 @@ export default function Admissions() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-96 flex items-center justify-center bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-800 dark:to-blue-800">
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80"
+            alt="Admissions"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-green-900/90 to-blue-900/80 dark:from-green-950/95 dark:to-blue-950/90" />
+        </div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -238,7 +247,7 @@ export default function Admissions() {
       </section>
 
       {/* Application Form */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section id="apply-now" className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-3xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -354,11 +363,23 @@ export default function Admissions() {
                 Get detailed information about our programs, faculty, campus facilities, and admission process
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                  Download PDF
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-700 hover:bg-blue-50"
+                  asChild
+                >
+                  <a href="/brochure.pdf" download>
+                    Download Brochure (PDF)
+                  </a>
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                  Request Physical Copy
+                <Button
+                  size="lg"
+                  className="bg-blue-900 text-white hover:bg-blue-800 border border-white/30"
+                  asChild
+                >
+                  <a href="/contact">
+                    Request Physical Copy
+                  </a>
                 </Button>
               </div>
             </CardContent>

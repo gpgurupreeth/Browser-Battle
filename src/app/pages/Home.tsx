@@ -125,7 +125,7 @@ export default function Home() {
                 </Button>
               </Link>
               <Link to="/academics">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700 border-none">
                   Explore Programs
                 </Button>
               </Link>
@@ -312,10 +312,10 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { name: 'Apply Now', path: '/admissions', color: 'bg-blue-600 hover:bg-blue-700' },
-              { name: 'Programs', path: '/academics', color: 'bg-blue-700 hover:bg-blue-800' },
-              { name: 'Campus Tour', path: '/gallery', color: 'bg-slate-600 hover:bg-slate-700' },
-              { name: 'Contact Us', path: '/contact', color: 'bg-slate-700 hover:bg-slate-800' },
+              { name: 'Apply Now', path: '/admissions' },
+              { name: 'Programs', path: '/academics' },
+              { name: 'Campus Tour', path: '/gallery' },
+              { name: 'Contact Us', path: '/contact' },
             ].map((link, idx) => (
               <motion.div
                 key={link.name}
@@ -326,7 +326,7 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
               >
                 <Link to={link.path}>
-                  <div className={`${link.color} text-white p-6 rounded-xl text-center shadow-md transition cursor-pointer`}>
+                  <div className="bg-blue-600 hover:bg-blue-700 text-white p-6 rounded-xl text-center shadow-md transition cursor-pointer">
                     <div className="text-lg font-semibold">{link.name}</div>
                   </div>
                 </Link>
@@ -356,17 +356,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                name: 'Sarah Johnson',
-                role: 'Software Engineer at Google',
-                text: 'Elite University gave me the foundation I needed to excel in my career. The faculty and resources are truly world-class.',
+                name: 'Aditi Sharma',
+                role: 'Software Engineer at Infosys',
+                text: 'RNS Institute gave me the foundation I needed to excel in my career. The faculty and resources are truly world-class.',
               },
               {
-                name: 'Michael Chen',
-                role: 'Research Scientist',
+                name: 'Raghav Verma',
+                role: 'Research Scientist at IISc',
                 text: 'The research opportunities here are unparalleled. I was able to publish papers and work on cutting-edge projects.',
               },
               {
-                name: 'Emily Davis',
+                name: 'Neha Kapoor',
                 role: 'Entrepreneur',
                 text: 'The entrepreneurship program helped me launch my startup. The mentorship and support were invaluable.',
               },

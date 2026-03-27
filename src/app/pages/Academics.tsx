@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router';
 import { BookOpen, Code, Beaker, Building, Palette, Calculator, Search, Filter } from 'lucide-react';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 
 const departments = [
   { name: 'Computer Science & Engineering', icon: Code, description: 'Cutting-edge technology and software development', courses: 15 },
@@ -50,10 +52,10 @@ const programs = [
 ];
 
 const faculty = [
-  { name: 'Dr. John Smith', specialization: 'Machine Learning', department: 'Computer Science', publications: 50 },
-  { name: 'Prof. Lisa Anderson', specialization: 'Quantum Physics', department: 'Natural Sciences', publications: 75 },
-  { name: 'Dr. Michael Brown', specialization: 'Marketing Strategy', department: 'Business', publications: 40 },
-  { name: 'Prof. Sarah Lee', specialization: 'Robotics', department: 'Engineering', publications: 60 },
+  { name: 'Dr. Arjun Desai', specialization: 'Machine Learning', department: 'Computer Science', publications: 50 },
+  { name: 'Prof. Meera Nair', specialization: 'Quantum Physics', department: 'Natural Sciences', publications: 75 },
+  { name: 'Dr. Arvind Menon', specialization: 'Marketing Strategy', department: 'Business', publications: 40 },
+  { name: 'Prof. Kavya Reddy', specialization: 'Robotics', department: 'Engineering', publications: 60 },
 ];
 
 export default function Academics() {
@@ -71,7 +73,15 @@ export default function Academics() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-800 dark:to-purple-800">
+      <section className="relative h-80 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=1600&q=80"
+            alt="Academics"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-purple-900/80 dark:from-blue-950/95 dark:to-purple-950/90" />
+        </div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -298,11 +308,17 @@ export default function Academics() {
               Join thousands of students pursuing excellence in their chosen fields
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                Apply Now
+              <Button size="lg" className="bg-white text-blue-700 hover:bg-blue-50" asChild>
+                <Link to="/admissions#apply-now">Apply Now</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
-                Download Brochure
+              <Button
+                size="lg"
+                className="bg-blue-900 text-white hover:bg-blue-800 border border-white/30"
+                asChild
+              >
+                <a href="/brochure.pdf" download>
+                  Download Brochure (PDF)
+                </a>
               </Button>
             </div>
           </motion.div>

@@ -101,7 +101,15 @@ export default function News() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-orange-600 to-red-600 dark:from-orange-800 dark:to-red-800">
+      <section className="relative h-80 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1600&q=80"
+            alt="News and Announcements"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-900/90 to-red-900/80 dark:from-orange-950/95 dark:to-red-950/90" />
+        </div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

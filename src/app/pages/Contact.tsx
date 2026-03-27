@@ -7,22 +7,28 @@ import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Button } from '../components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { toast } from 'sonner';
 
 const contactInfo = [
-  { icon: Phone, label: 'Phone', value: '+1 (234) 567-890', link: 'tel:+1234567890' },
-  { icon: Mail, label: 'Email', value: 'info@university.edu', link: 'mailto:info@university.edu' },
-  { icon: MapPin, label: 'Address', value: '123 University Avenue, Education City, EC 12345', link: null },
+  { icon: Phone, label: 'Phone', value: '+91 80 2861 3695', link: 'tel:+918028613695' },
+  { icon: Mail, label: 'Email', value: 'info@rnsit.ac.in', link: 'mailto:info@rnsit.ac.in' },
+  {
+    icon: MapPin,
+    label: 'Address',
+    value: 'RNS Institute of Technology, Dr. Vishnuvardhan Road, RR Nagar, Bengaluru, Karnataka 560098',
+    link: 'https://www.google.com/maps?q=12.9021902,77.518582',
+  },
   { icon: Clock, label: 'Office Hours', value: 'Mon-Fri: 9:00 AM - 5:00 PM', link: null },
 ];
 
 const departments = [
-  { name: 'Admissions Office', email: 'admissions@university.edu', phone: '+1 (234) 567-891' },
-  { name: 'Academic Affairs', email: 'academics@university.edu', phone: '+1 (234) 567-892' },
-  { name: 'Student Services', email: 'studentservices@university.edu', phone: '+1 (234) 567-893' },
-  { name: 'Financial Aid', email: 'finaid@university.edu', phone: '+1 (234) 567-894' },
-  { name: 'International Office', email: 'international@university.edu', phone: '+1 (234) 567-895' },
-  { name: 'Career Services', email: 'careers@university.edu', phone: '+1 (234) 567-896' },
+  { name: 'Admissions Office', email: 'admissions@university.edu', phone: '+91 1234567890' },
+  { name: 'Academic Affairs', email: 'academics@university.edu', phone: '+91 4353543456' },
+  { name: 'Student Services', email: 'studentservices@university.edu', phone: '+91 2345678902' },
+  { name: 'Financial Aid', email: 'finaid@university.edu', phone: '+91 6666222290' },
+  { name: 'International Office', email: 'international@university.edu', phone: '+91 9876543201' },
+  { name: 'Career Services', email: 'careers@university.edu', phone: '+91 23456788900' },
 ];
 
 const faqs = [
@@ -104,17 +110,49 @@ export default function Contact() {
     subject: '',
     message: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const formEndpoint = import.meta.env.VITE_FORM_ENDPOINT || 'https://formspree.io/f/mojpvrpv';
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Message sent successfully! We will get back to you soon.');
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(formEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({ ...formData, _subject: `New inquiry: ${formData.subject}` }),
+      });
+
+      if (response.ok) {
+        toast.success('Message sent successfully! We will get back to you soon.');
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      } else {
+        toast.error('Could not send your message. Please try again.');
+      }
+    } catch (error) {
+      toast.error('Could not send your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-80 flex items-center justify-center bg-gradient-to-r from-teal-600 to-cyan-600 dark:from-teal-800 dark:to-cyan-800">
+      <section className="relative h-80 flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0">
+          <ImageWithFallback
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80"
+            alt="Contact Us"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-900/90 to-cyan-900/80 dark:from-teal-950/95 dark:to-cyan-950/90" />
+        </div>
         <div className="relative z-10 text-center text-white px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -212,7 +250,7 @@ export default function Contact() {
                         type="tel"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+1 234 567 8900"
+                        placeholder="+91 808882345"
                       />
                     </div>
 
@@ -239,9 +277,9 @@ export default function Contact() {
                       />
                     </div>
 
-                    <Button type="submit" className="w-full" size="lg">
+                    <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
                       <Send className="w-4 h-4 mr-2" />
-                      Send Message
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </Button>
                   </form>
                 </CardContent>
@@ -259,7 +297,7 @@ export default function Contact() {
               <Card className="overflow-hidden">
                 <div className="h-64 bg-gray-200 dark:bg-gray-700 relative">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1841374067776!2d-73.98823492346679!3d40.75797733538546!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                    src="https://www.google.com/maps?q=12.9021902,77.518582&z=17&output=embed"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
